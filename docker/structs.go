@@ -106,7 +106,7 @@ type ContainerComplete struct {
 	Image Image `json:"image" yaml:"image"`
 }
 
-type ContainerList struct {
+type ContainerListStruct struct {
 	Count    int                 `json:"count" yaml:"count"`
 	Next     string              `json:"next" yaml:"next"`
 	Previous string              `json:"previous" yaml:"previous"`
@@ -133,9 +133,19 @@ type HostComplete struct {
 	Host
 }
 
-type HostList struct {
+type HostListStruct struct {
 	Count    int            `json:"count" yaml:"count"`
 	Next     string         `json:"next" yaml:"next"`
 	Previous string         `json:"previous" yaml:"previous"`
 	Results  []HostComplete `json:"results" yaml:"results"`
+}
+
+
+type operationType struct {
+	Operation string `json:"operation"`
+}
+
+
+type command struct {
+	Cmd []string `json:"cmd"`
 }
