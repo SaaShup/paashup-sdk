@@ -13,7 +13,7 @@ import (
 var NETBOX_URL string
 var NETBOX_TOKEN string
 
-func request(endpoint string, method string, jsonStr []byte) ([]byte, error) {
+func Request(endpoint string, method string, jsonStr []byte) ([]byte, error) {
 	netboxUrl := strings.TrimRight(NETBOX_URL, "/")
 	client := &http.Client{}
 
