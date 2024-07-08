@@ -72,7 +72,7 @@ func ContainerStart(container Container) (Container, error){
     return containerOperation(container, "start")
 }
 
-func StopContainer(container Container) (Container, error){
+func ContainerStop(container Container) (Container, error){
     return containerOperation(container, "stop")
 }
 
