@@ -33,7 +33,7 @@ func HostSearchByName(name string) (HostComplete, error){
 	}
 
 	if err := json.Unmarshal(resultCall, &result); err != nil { // Parse []byte to the go struct pointer
-		fmt.Println("Can not unmarshal JSON")
+        return HostComplete{}, err
 	}
 
 	if result.Count == 1 {

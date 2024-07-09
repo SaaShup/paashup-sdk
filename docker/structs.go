@@ -68,6 +68,113 @@ type Container struct {
 	Hostname       string `json:"hostname" yaml:"hostname"`
 }
 
+type Mount struct {
+	Source    string `json:"source" yaml:"source"`
+	Read_only bool   `json:"read_only" yaml:"read_only"`
+	Volume    Volume `json:"volume" yaml:"volume"`
+}
+
+type VolumeComplete struct {
+    Volume
+    Mounts []Mount `json:"mounts" yaml:"mounts"`
+    Host  Host    `json:"host" yaml:"host"`
+    Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
+    Tags []Tag `json:"tags" yaml:"tags"`
+}
+
+type VolumeCreateStruct struct {
+    Name   string `json:"name" yaml:"name"`
+    Driver string `json:"driver" yaml:"driver"`
+    Host   int    `json:"host" yaml:"host"`
+    Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
+    Tags Tag `json:"tags" yaml:"tags"`
+}
+
+type VolumeListStruct struct {
+    Count    int              `json:"count" yaml:"count"`
+    Next     string           `json:"next" yaml:"next"`
+    Previous string           `json:"previous" yaml:"previous"`
+    Results  []VolumeComplete `json:"results" yaml:"results"`
+}
+
+type NetworkComplete struct {
+    Network
+    Host  Host  `json:"host" yaml:"host"`
+    network_settings []struct {
+        Id     int    `json:"id" yaml:"id"`
+        Network Network `json:"network" yaml:"network"`
+    }
+    Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
+    Tags []Tag `json:"tags" yaml:"tags"`
+}
+
+type NetworkCreateStruct struct {
+    Name   string `json:"name" yaml:"name"`
+    Driver string `json:"driver" yaml:"driver"`
+    Host   int    `json:"host" yaml:"host"`
+    Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
+    Tags Tag `json:"tags" yaml:"tags"`
+    NetworkId string `json:"NetworkID" yaml:"NetworkID"`
+    State string `json:"state" yaml:"state"`
+}
+
+type NetworkListStruct struct {
+    Count    int              `json:"count" yaml:"count"`
+    Next     string           `json:"next" yaml:"next"`
+    Previous string           `json:"previous" yaml:"previous"`
+    Results  []NetworkComplete `json:"results" yaml:"results"`
+}
+
+type RegistryComplete struct {
+    Registry
+    Host  Host  `json:"host" yaml:"host"`
+    Images []Image `json:"images" yaml:"images"`
+}
+
+type RegistryCreateStruct struct {
+    Name          string `json:"name" yaml:"name"`
+    ServerAddress string `json:"serveraddress" yaml:"serveraddress"`
+    Username      string `json:"username" yaml:"username"`
+    Password      string `json:"password" yaml:"password"`
+    Email         string `json:"email" yaml:"email"`
+    Host          int    `json:"host" yaml:"host"`
+}
+
+type RegistryListStruct struct {
+    Count    int              `json:"count" yaml:"count"`
+    Next     string           `json:"next" yaml:"next"`
+    Previous string           `json:"previous" yaml:"previous"`
+    Results  []RegistryComplete `json:"results" yaml:"results"`
+}
+
+type ImageComplete struct {
+    Image
+    Host  Host  `json:"host" yaml:"host"`
+    Containers []Container `json:"containers" yaml:"containers"`
+    Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
+    Tags []Tag `json:"tags" yaml:"tags"`
+    Registry Registry `json:"registry" yaml:"registry"`
+}
+
+type ImageCreateStruct struct {
+    Name    string `json:"name" yaml:"name"`
+    Version string `json:"version" yaml:"version"`
+    Size    int    `json:"size" yaml:"size"`
+    ImageID string `json:"ImageID" yaml:"ImageID"`
+    Digest  string `json:"Digest" yaml:"Digest"`
+    Host    int    `json:"host" yaml:"host"`
+    Registry int    `json:"registry" yaml:"registry"`
+    Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
+    Tags []Tag `json:"tags" yaml:"tags"`
+}
+
+type ImageListStruct struct {
+    Count    int              `json:"count" yaml:"count"`
+    Next     string           `json:"next" yaml:"next"`
+    Previous string           `json:"previous" yaml:"previous"`
+    Results  []ImageComplete `json:"results" yaml:"results"`
+}
+
 type ContainerComplete struct {
 	Container
 	Ports []struct {
@@ -83,11 +190,7 @@ type ContainerComplete struct {
 		Key   string `json:"key" yaml:"key"`
 		Value string `json:"value" yaml:"value"`
 	}
-	Mounts []struct {
-		Source    string `json:"source" yaml:"source"`
-		Read_only bool   `json:"read_only" yaml:"read_only"`
-		Volume    Volume `json:"volume" yaml:"volume"`
-	}
+	Mounts []Mount `json:"mounts" yaml:"mounts"`
 	Binds []struct {
 		Host_path      string `json:"host_path" yaml:"host_path"`
 		Container_path string `json:"container_path" yaml:"container_path"`
@@ -97,7 +200,7 @@ type ContainerComplete struct {
 		Network Network `json:"network" yaml:"network"`
 	}
 	Created       string      `json:"created" yaml:"created"`
-	Custom_fields interface{} `json:"custom_fields" yaml:"custom_fields"`
+	Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
 
 	Last_updated string   `json:"last_updated" yaml:"last_updated"`
 	Tags         []string `json:"tags" yaml:"tags"`
@@ -113,6 +216,14 @@ type ContainerListStruct struct {
 	Results  []ContainerComplete `json:"results" yaml:"results"`
 }
 
+type CustomField interface{}
+
+type Tag struct {
+    Name string `json:"name" yaml:"name"`
+    Slug string `json:"slug" yaml:"slug"`
+    Color string `json:"color" yaml:"color"`
+}
+
 type HostComplete struct {
 	Token struct {
 		Id            int    `json:"id" yaml:"id"`
@@ -122,7 +233,7 @@ type HostComplete struct {
 		Write_enabled bool   `json:"write_enabled" yaml:"write_enabled"`
 	}
 	Netbox_base_url string      `json:"netbox_base_url" yaml:"netbox_base_url"`
-	Custom_fields   interface{} `json:"custom_fields" yaml:"custom_fields"`
+	Custom_fields   CustomField `json:"custom_fields" yaml:"custom_fields"`
 	Last_updated    string      `json:"last_updated" yaml:"last_updated"`
 	Tags            []string    `json:"tags" yaml:"tags"`
 	Images          []Image     `json:"images" yaml:"images"`
@@ -140,11 +251,9 @@ type HostListStruct struct {
 	Results  []HostComplete `json:"results" yaml:"results"`
 }
 
-
 type operationType struct {
 	Operation string `json:"operation"`
 }
-
 
 type command struct {
 	Cmd []string `json:"cmd"`
