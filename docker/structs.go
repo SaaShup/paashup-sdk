@@ -86,8 +86,6 @@ type VolumeCreateStruct struct {
     Name   string `json:"name" yaml:"name"`
     Driver string `json:"driver" yaml:"driver"`
     Host   int    `json:"host" yaml:"host"`
-    Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
-    Tags []Tag `json:"tags" yaml:"tags"`
 }
 
 type VolumeListStruct struct {
@@ -162,8 +160,6 @@ type ImageCreateStruct struct {
     Digest  string `json:"Digest" yaml:"Digest"`
     Host    int    `json:"host" yaml:"host"`
     Registry int    `json:"registry" yaml:"registry"`
-    Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
-    Tags []Tag `json:"tags" yaml:"tags"`
 }
 
 type ImageListStruct struct {
@@ -205,6 +201,37 @@ type ContainerComplete struct {
 
 	Host  Host  `json:"host" yaml:"host"`
 	Image Image `json:"image" yaml:"image"`
+}
+
+type ContainerCreateStruct struct {
+    Name           string `json:"name" yaml:"name"`
+    ContainerID    string `json:"ContainerID" yaml:"ContainerID"`
+    State          string `json:"state" yaml:"state"`
+    Status         string `json:"status" yaml:"status"`
+    Restart_policy string `json:"restart_policy" yaml:"restart_policy"`
+    Operation      string `json:"operation" yaml:"operation"`
+    Host           int    `json:"host" yaml:"host"`
+    Image          int    `json:"image" yaml:"image"`
+    NetworkSettings []Network `json:"network_settings" yaml:"network_settings"`
+    Mounts         []Mount `json:"mounts" yaml:"mounts"`
+    Binds          []struct {
+        Host_path      string `json:"host_path" yaml:"host_path"`
+        Container_path string `json:"container_path" yaml:"container_path"`
+        Read_only      bool   `json:"read_only" yaml:"read_only"`
+    }
+    Env    []struct {
+        Var_name string `json:"var_name" yaml:"var_name"`
+        Value    string `json:"value" yaml:"value"`
+    }
+    Labels []struct {
+        Key   string `json:"key" yaml:"key"`
+        Value string `json:"value" yaml:"value"`
+    }
+    Ports []struct {
+        Public_port  int    `json:"public_port" yaml:"public_port"`
+        Private_port int    `json:"private_port" yaml:"private_port"`
+        Type         string `json:"type" yaml:"type"`
+    }
 }
 
 type ContainerListStruct struct {

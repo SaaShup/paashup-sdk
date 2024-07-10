@@ -123,3 +123,18 @@ func ContainerLogs(containerId int) (string, error) {
 
 	return fmt.Sprintf("%s\n", resultCall), nil
 }
+
+
+func ContainerCreate(Image ContainerCreateStruct) (ContainerComplete, error){
+    var ContainerResponse ContainerComplete
+    jsonStr, _ := json.Marshal(Image)
+    result, err := netbox.Request("/docker/containers/", "POST", jsonStr)
+
+    if err != nil {
+        return ContainerResponse, err
+    }
+    if err := json.Unmarshal(result, &ContainerResponse); err != nil {
+        return ContainerResponse, err
+    }
+    return ContainerResponse, nil
+}
