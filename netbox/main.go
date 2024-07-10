@@ -17,7 +17,7 @@ func Request(endpoint string, method string, jsonStr []byte) ([]byte, error) {
 	netboxUrl := strings.TrimRight(NETBOX_URL, "/")
 	client := &http.Client{}
 
-	req, err := http.NewRequest(method, fmt.Sprintf("%s/api/plugins/%s/", netboxUrl, strings.TrimLeft(strings.TrimRight(endpoint, "/"), "/")), ioutil.NopCloser(bytes.NewBuffer(jsonStr)))
+	req, err := http.NewRequest(method, fmt.Sprintf("%s/api/plugins/%s", netboxUrl, strings.TrimLeft(endpoint, "/")), ioutil.NopCloser(bytes.NewBuffer(jsonStr)))
 
 	if err != nil {
 		return nil, err
