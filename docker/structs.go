@@ -169,7 +169,7 @@ type ImageListStruct struct {
     Results  []ImageComplete `json:"results" yaml:"results"`
 }
 
-type Ports struct {
+type Port struct {
     Public_port  int    `json:"public_port" yaml:"public_port"`
     Private_port int    `json:"private_port" yaml:"private_port"`
     Type         string `json:"type" yaml:"type"`
@@ -180,16 +180,16 @@ type Env struct {
     Value    string `json:"value" yaml:"value"`
 }
 
-type Labels struct {
+type Label struct {
     Key   string `json:"key" yaml:"key"`
     Value string `json:"value" yaml:"value"`
 }
 
 type ContainerComplete struct {
 	Container
-    Ports []Ports `json:"ports" yaml:"ports"`
+    Ports []Port `json:"ports" yaml:"ports"`
 	Env  []Env   `json:"env" yaml:"env"`
-    Labels []Labels `json:"labels" yaml:"labels"`
+    Labels []Label `json:"labels" yaml:"labels"`
 	Mounts []Mount `json:"mounts" yaml:"mounts"`
 	Binds []struct {
 		Host_path      string `json:"host_path" yaml:"host_path"`
@@ -225,19 +225,9 @@ type ContainerCreateStruct struct {
         Container_path string `json:"container_path" yaml:"container_path"`
         Read_only      bool   `json:"read_only" yaml:"read_only"`
     }
-    Env    []struct {
-        Var_name string `json:"var_name" yaml:"var_name"`
-        Value    string `json:"value" yaml:"value"`
-    }
-    Labels []struct {
-        Key   string `json:"key" yaml:"key"`
-        Value string `json:"value" yaml:"value"`
-    }
-    Ports []struct {
-        Public_port  int    `json:"public_port" yaml:"public_port"`
-        Private_port int    `json:"private_port" yaml:"private_port"`
-        Type         string `json:"type" yaml:"type"`
-    }
+    Env             []Env `json:"env" yaml:"env"`
+    Labels          []Label `json:"labels" yaml:"labels"`
+    Ports           []Port `json:"ports" yaml:"ports"`
 }
 
 type ContainerListStruct struct {
