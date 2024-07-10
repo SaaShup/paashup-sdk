@@ -169,21 +169,27 @@ type ImageListStruct struct {
     Results  []ImageComplete `json:"results" yaml:"results"`
 }
 
+type Ports struct {
+    Public_port  int    `json:"public_port" yaml:"public_port"`
+    Private_port int    `json:"private_port" yaml:"private_port"`
+    Type         string `json:"type" yaml:"type"`
+}
+
+type Env struct {
+    Var_name string `json:"var_name" yaml:"var_name"`
+    Value    string `json:"value" yaml:"value"`
+}
+
+type Labels struct {
+    Key   string `json:"key" yaml:"key"`
+    Value string `json:"value" yaml:"value"`
+}
+
 type ContainerComplete struct {
 	Container
-	Ports []struct {
-		Public_port  int    `json:"public_port" yaml:"public_port"`
-		Private_port int    `json:"private_port" yaml:"private_port"`
-		Type         string `json:"type" yaml:"type"`
-	}
-	Env []struct {
-		Var_name string `json:"var_name" yaml:"var_name"`
-		Value    string `json:"value" yaml:"value"`
-	}
-	Labels []struct {
-		Key   string `json:"key" yaml:"key"`
-		Value string `json:"value" yaml:"value"`
-	}
+    Ports []Ports `json:"ports" yaml:"ports"`
+	Env  []Env   `json:"env" yaml:"env"`
+    Labels []Labels `json:"labels" yaml:"labels"`
 	Mounts []Mount `json:"mounts" yaml:"mounts"`
 	Binds []struct {
 		Host_path      string `json:"host_path" yaml:"host_path"`
