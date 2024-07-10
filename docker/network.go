@@ -73,6 +73,7 @@ func NetworkSearchByName(name string, hostId int) (NetworkComplete, error){
 func NetworkCreate(Network NetworkCreateStruct) (NetworkComplete, error){
     var NetworkResponse NetworkComplete
     jsonStr, _ := json.Marshal(Network)
+
     result, err := netbox.Request("/docker/networks/", "POST", jsonStr)
 
     if err != nil {
