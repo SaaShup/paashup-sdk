@@ -87,7 +87,7 @@ type VolumeCreateStruct struct {
     Driver string `json:"driver" yaml:"driver"`
     Host   int    `json:"host" yaml:"host"`
     Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
-    Tags Tag `json:"tags" yaml:"tags"`
+    Tags []Tag `json:"tags" yaml:"tags"`
 }
 
 type VolumeListStruct struct {
@@ -113,7 +113,7 @@ type NetworkCreateStruct struct {
     Driver string `json:"driver" yaml:"driver"`
     Host   int    `json:"host" yaml:"host"`
     Custom_fields CustomField `json:"custom_fields" yaml:"custom_fields"`
-    Tags Tag `json:"tags" yaml:"tags"`
+    Tags []Tag `json:"tags" yaml:"tags"`
     NetworkId string `json:"NetworkID" yaml:"NetworkID"`
     State string `json:"state" yaml:"state"`
 }
