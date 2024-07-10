@@ -70,6 +70,31 @@ func ImageSearchByName(name string, hostId int) (ImageComplete, error){
 	}
 }
 
+func ImageSearchByNameAndVersion(name string, version string, hostId int) (ImageComplete, error){
+	if name == "" {
+		return ImageComplete{}, fmt.Errorf("Image not found")
+	}
+
+	url := fmt.Sprintf("/docker/images/?name=%s&host_id=%d&version=%s", name, hostId, version)
+	var result ImageListStruct
+	resultCall, err := netbox.Request(url, "GET", nil)
+
+	if err != nil {
+		return ImageComplete{}, err
+	}
+
+	if err := json.Unmarshal(resultCall, &result); err != nil {
+		return ImageComplete{}, err
+	}
+
+	if result.Count == 1 {
+		return result.Results[0], nil
+	} else {
+		return ImageComplete{}, fmt.Errorf("Image not found")
+	}
+}
+
+
 func ImageCreate(Image ImageCreateStruct) (ImageComplete, error){
     var ImageResponse ImageComplete
     jsonStr, _ := json.Marshal(Image)
