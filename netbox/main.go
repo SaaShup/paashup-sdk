@@ -17,7 +17,7 @@ func Request(endpoint string, method string, jsonStr []byte) ([]byte, error) {
 	netboxUrl := strings.TrimRight(NETBOX_URL, "/")
 	client := &http.Client{}
 
-	req, err := http.NewRequest(method, fmt.Sprintf("%s/api/plugins/docker/%s", netboxUrl, endpoint), ioutil.NopCloser(bytes.NewBuffer(jsonStr)))
+	req, err := http.NewRequest(method, fmt.Sprintf("%s/api/plugins/%s/", netboxUrl, strings.TrimLeft(strings.TrimRight(endpoint, "/"), "/")), ioutil.NopCloser(bytes.NewBuffer(jsonStr)))
 
 	if err != nil {
 		return nil, err
@@ -25,6 +25,7 @@ func Request(endpoint string, method string, jsonStr []byte) ([]byte, error) {
 
 	req.ContentLength = int64(len(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Accept", "application/json")
 	req.Header.Set("Authorization", fmt.Sprintf("Token %s", NETBOX_TOKEN))
 	res, err := client.Do(req)
 	if err != nil {

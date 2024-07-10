@@ -8,7 +8,7 @@ import (
 )
 
 func ContainerList() (ContainerListStruct, error){
-    resultCall, err := netbox.Request("containers/", "GET", nil)
+    resultCall, err := netbox.Request("/docker/containers/", "GET", nil)
 
     if err != nil {
         return ContainerListStruct{}, err
@@ -24,7 +24,7 @@ func ContainerList() (ContainerListStruct, error){
 }
 
 func ContainerListByHost(hostId int) (ContainerListStruct, error){
-    resultCall, err := netbox.Request(fmt.Sprintf("containers/?host_id=%d", hostId), "GET", nil)
+    resultCall, err := netbox.Request(fmt.Sprintf("/docker/containers/?host_id=%d", hostId), "GET", nil)
 
     if err != nil {
         return ContainerListStruct{}, err
@@ -49,7 +49,7 @@ func ContainerSearchByName(host HostComplete, containerName string) (Container, 
 }
 
 func containerOperation(container Container, operation string) (Container, error){
-	url := fmt.Sprintf("containers/%d/", container.Id)
+	url := fmt.Sprintf("/docker/containers/%d/", container.Id)
 	operationS := &operationType{Operation: operation}
 	jsonStr, _ := json.Marshal(operationS)
 
@@ -77,7 +77,7 @@ func ContainerStop(container Container) (Container, error){
 }
 
 func ContainerInspect(containerId int) (ContainerComplete, error){
-	url := fmt.Sprintf("containers/%d/", containerId)
+	url := fmt.Sprintf("/docker/containers/%d/", containerId)
 	resultCall, err := netbox.Request(url, "GET", nil)
 
 	if err != nil {
@@ -93,7 +93,7 @@ func ContainerInspect(containerId int) (ContainerComplete, error){
 
 func ContainerExec(containerId int, cmd string) (string, error) {
 
-	url := fmt.Sprintf("containers/%d/exec/", containerId)
+	url := fmt.Sprintf("/docker/containers/%d/exec/", containerId)
 	command := &command{Cmd: strings.Fields(cmd)}
 	jsonStr, _ := json.Marshal(command)
 
@@ -114,7 +114,7 @@ func ContainerExec(containerId int, cmd string) (string, error) {
 }
 
 func ContainerLogs(containerId int) (string, error) {
-	url := fmt.Sprintf("containers/%d/logs/", containerId)
+	url := fmt.Sprintf("/docker/containers/%d/logs/", containerId)
 	resultCall, err := netbox.Request(url, "GET", nil)
 
 	if err != nil {

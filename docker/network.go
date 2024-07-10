@@ -8,7 +8,7 @@ import (
 
 func NetworkList() (NetworkListStruct, error){
     var NetworkList NetworkListStruct
-    result, err := netbox.Request("networks/", "GET", nil)
+    result, err := netbox.Request("/docker/networks/", "GET", nil)
 
     if err != nil {
         return NetworkList, err
@@ -21,7 +21,7 @@ func NetworkList() (NetworkListStruct, error){
 
 func NetworkListByHost(hostId int) (NetworkListStruct, error){
     var NetworkList NetworkListStruct
-    result, err := netbox.Request(fmt.Sprintf("networks/?host_id=%d", hostId), "GET", nil)
+    result, err := netbox.Request(fmt.Sprintf("/docker/networks/?host_id=%d", hostId), "GET", nil)
 
     if err != nil {
         return NetworkList, err
@@ -34,7 +34,7 @@ func NetworkListByHost(hostId int) (NetworkListStruct, error){
 
 func NetworkInspect(networkId int) (NetworkComplete, error){
     var Network NetworkComplete
-    url := fmt.Sprintf("networks/%d/", networkId)
+    url := fmt.Sprintf("/docker/networks/%d/", networkId)
     result, err := netbox.Request(url, "GET", nil)
 
     if err != nil {
@@ -51,7 +51,7 @@ func NetworkSearchByName(name string, hostId int) (NetworkComplete, error){
 		return NetworkComplete{}, fmt.Errorf("Network not found")
 	}
 
-	url := fmt.Sprintf("networks/?name=%s&host_id=%d", name, hostId)
+	url := fmt.Sprintf("/docker/networks/?name=%s&host_id=%d", name, hostId)
 	var result NetworkListStruct
 	resultCall, err := netbox.Request(url, "GET", nil)
 
@@ -73,7 +73,7 @@ func NetworkSearchByName(name string, hostId int) (NetworkComplete, error){
 func NetworkCreate(Network NetworkCreateStruct) (NetworkComplete, error){
     var NetworkResponse NetworkComplete
     jsonStr, _ := json.Marshal(Network)
-    result, err := netbox.Request("networks/", "POST", jsonStr)
+    result, err := netbox.Request("/docker/networks/", "POST", jsonStr)
 
     if err != nil {
         return NetworkResponse, err
@@ -85,7 +85,7 @@ func NetworkCreate(Network NetworkCreateStruct) (NetworkComplete, error){
 }
 
 func NetworkDelete(networkId int) error{
-    url := fmt.Sprintf("networks/%d/", networkId)
+    url := fmt.Sprintf("/docker/networks/%d/", networkId)
     _, err := netbox.Request(url, "DELETE", nil)
 
     if err != nil {

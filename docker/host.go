@@ -8,7 +8,7 @@ import (
 
 func HostList() (HostListStruct, error){
     var hostList HostListStruct
-    result, err := netbox.Request("hosts/", "GET", nil)
+    result, err := netbox.Request("/docker/hosts/", "GET", nil)
 
     if err != nil {
         return hostList, err
@@ -24,7 +24,7 @@ func HostSearchByName(name string) (HostComplete, error){
 		return HostComplete{}, fmt.Errorf("Host not found")
 	}
 
-	url := fmt.Sprintf("hosts/?name=%s", name)
+	url := fmt.Sprintf("/docker/hosts/?name=%s", name)
 	var result HostListStruct
 	resultCall, err := netbox.Request(url, "GET", nil)
 

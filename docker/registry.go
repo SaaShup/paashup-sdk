@@ -8,7 +8,7 @@ import (
 
 func RegistryList() (RegistryListStruct, error){
     var RegistryList RegistryListStruct
-    result, err := netbox.Request("registries/", "GET", nil)
+    result, err := netbox.Request("/docker/registries/", "GET", nil)
 
     if err != nil {
         return RegistryList, err
@@ -21,7 +21,7 @@ func RegistryList() (RegistryListStruct, error){
 
 func RegistryListByHost(hostId int) (RegistryListStruct, error){
     var RegistryList RegistryListStruct
-    result, err := netbox.Request(fmt.Sprintf("registries/?host_id=%d", hostId), "GET", nil)
+    result, err := netbox.Request(fmt.Sprintf("/docker/registries/?host_id=%d", hostId), "GET", nil)
 
     if err != nil {
         return RegistryList, err
@@ -34,7 +34,7 @@ func RegistryListByHost(hostId int) (RegistryListStruct, error){
 
 func RegistryInspect(registryId int) (RegistryComplete, error){
     var Registry RegistryComplete
-    url := fmt.Sprintf("registries/%d/", registryId)
+    url := fmt.Sprintf("/docker/registries/%d/", registryId)
     result, err := netbox.Request(url, "GET", nil)
 
     if err != nil {
@@ -51,7 +51,7 @@ func RegistrySearchByName(name string, hostId int) (RegistryComplete, error){
 		return RegistryComplete{}, fmt.Errorf("Registry not found")
 	}
 
-	url := fmt.Sprintf("registries/?name=%s&host_id=%d", name, hostId)
+	url := fmt.Sprintf("/docker/registries/?name=%s&host_id=%d", name, hostId)
 	var result RegistryListStruct
 	resultCall, err := netbox.Request(url, "GET", nil)
 
@@ -73,7 +73,7 @@ func RegistrySearchByName(name string, hostId int) (RegistryComplete, error){
 func RegistryCreate(Registry RegistryCreateStruct) (RegistryComplete, error){
     var RegistryResponse RegistryComplete
     jsonStr, _ := json.Marshal(Registry)
-    result, err := netbox.Request("registries/", "POST", jsonStr)
+    result, err := netbox.Request("/docker/registries/", "POST", jsonStr)
 
     if err != nil {
         return RegistryResponse, err
@@ -85,7 +85,7 @@ func RegistryCreate(Registry RegistryCreateStruct) (RegistryComplete, error){
 }
 
 func RegistryDelete(registryId int) error{
-    url := fmt.Sprintf("registries/%d/", registryId)
+    url := fmt.Sprintf("/docker/registries/%d/", registryId)
     _, err := netbox.Request(url, "DELETE", nil)
 
     if err != nil {
