@@ -8,7 +8,7 @@ import (
 
 func ImageList() (ImageListStruct, error){
     var ImageList ImageListStruct
-    result, err := netbox.Request("/images/", "GET", nil)
+    result, err := netbox.Request("images/", "GET", nil)
 
     if err != nil {
         return ImageList, err
@@ -21,7 +21,7 @@ func ImageList() (ImageListStruct, error){
 
 func ImageListByHost(hostId int) (ImageListStruct, error){
     var ImageList ImageListStruct
-    result, err := netbox.Request(fmt.Sprintf("/images/?host_id=%d", hostId), "GET", nil)
+    result, err := netbox.Request(fmt.Sprintf("images/?host_id=%d", hostId), "GET", nil)
 
     if err != nil {
         return ImageList, err
@@ -34,7 +34,7 @@ func ImageListByHost(hostId int) (ImageListStruct, error){
 
 func ImageInspect(ImageId int) (ImageComplete, error){
     var Image ImageComplete
-    url := fmt.Sprintf("/images/%d/", ImageId)
+    url := fmt.Sprintf("images/%d/", ImageId)
     result, err := netbox.Request(url, "GET", nil)
 
     if err != nil {
@@ -51,7 +51,7 @@ func ImageSearchByName(name string, hostId int) (ImageComplete, error){
 		return ImageComplete{}, fmt.Errorf("Image not found")
 	}
 
-	url := fmt.Sprintf("/images/?name=%s&host_id=%d", name, hostId)
+	url := fmt.Sprintf("images/?name=%s&host_id=%d", name, hostId)
 	var result ImageListStruct
 	resultCall, err := netbox.Request(url, "GET", nil)
 
@@ -73,7 +73,7 @@ func ImageSearchByName(name string, hostId int) (ImageComplete, error){
 func ImageCreate(Image ImageCreateStruct) (ImageComplete, error){
     var ImageResponse ImageComplete
     jsonStr, _ := json.Marshal(Image)
-    result, err := netbox.Request("/images", "POST", jsonStr)
+    result, err := netbox.Request("images/", "POST", jsonStr)
 
     if err != nil {
         return ImageResponse, err
@@ -85,7 +85,7 @@ func ImageCreate(Image ImageCreateStruct) (ImageComplete, error){
 }
 
 func ImageDelete(ImageId int) error{
-    url := fmt.Sprintf("/images/%d/", ImageId)
+    url := fmt.Sprintf("images/%d/", ImageId)
     _, err := netbox.Request(url, "DELETE", nil)
 
     if err != nil {

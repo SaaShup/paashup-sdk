@@ -8,7 +8,7 @@ import (
 
 func HostList() (HostListStruct, error){
     var hostList HostListStruct
-    result, err := netbox.Request("/hosts", "GET", nil)
+    result, err := netbox.Request("hosts/", "GET", nil)
 
     if err != nil {
         return hostList, err

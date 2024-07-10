@@ -8,7 +8,7 @@ import (
 
 func VolumeList() (VolumeListStruct, error){
     var volumeList VolumeListStruct
-    result, err := netbox.Request("/volumes", "GET", nil)
+    result, err := netbox.Request("volumes/", "GET", nil)
 
     if err != nil {
         return volumeList, err
@@ -21,7 +21,7 @@ func VolumeList() (VolumeListStruct, error){
 
 func VolumeListByHost(hostId int) (VolumeListStruct, error){
     var volumeList VolumeListStruct
-    result, err := netbox.Request(fmt.Sprintf("/volumes?host_id=%d", hostId), "GET", nil)
+    result, err := netbox.Request(fmt.Sprintf("volumes/?host_id=%d", hostId), "GET", nil)
 
     if err != nil {
         return volumeList, err
@@ -34,7 +34,7 @@ func VolumeListByHost(hostId int) (VolumeListStruct, error){
 
 func VolumeInspect(volumeId int) (VolumeComplete, error){
     var volume VolumeComplete
-    url := fmt.Sprintf("/volumes/%d/", volumeId)
+    url := fmt.Sprintf("volumes/%d/", volumeId)
     result, err := netbox.Request(url, "GET", nil)
 
     if err != nil {
@@ -51,7 +51,7 @@ func VolumeSearchByName(name string, hostId int) (VolumeComplete, error){
 		return VolumeComplete{}, fmt.Errorf("Volume not found")
 	}
 
-	url := fmt.Sprintf("/volumes/?name=%s&host_id=%d", name, hostId)
+	url := fmt.Sprintf("volumes/?name=%s&host_id=%d", name, hostId)
 	var result VolumeListStruct
 	resultCall, err := netbox.Request(url, "GET", nil)
 
@@ -73,7 +73,7 @@ func VolumeSearchByName(name string, hostId int) (VolumeComplete, error){
 func VolumeCreate(volume VolumeCreateStruct) (VolumeComplete, error){
     var volumeResponse VolumeComplete
     jsonStr, _ := json.Marshal(volume)
-    result, err := netbox.Request("/volumes", "POST", jsonStr)
+    result, err := netbox.Request("volumes/", "POST", jsonStr)
 
     if err != nil {
         return volumeResponse, err
@@ -85,7 +85,7 @@ func VolumeCreate(volume VolumeCreateStruct) (VolumeComplete, error){
 }
 
 func VolumeDelete(volumeId int) error{
-    url := fmt.Sprintf("/volumes/%d/", volumeId)
+    url := fmt.Sprintf("volumes/%d/", volumeId)
     _, err := netbox.Request(url, "DELETE", nil)
 
     if err != nil {
