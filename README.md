@@ -6,6 +6,7 @@ This is the official SDK for Paashup. This SDK is designed to help you interact 
 
 ```bash
 import "github.com/SaaShup/paashup-sdk/docker"
+import "github.com/SaaShup/paashup-sdk/cloudflare"
 import "github.com/SaaShup/paashup-sdk/netbox"
 ```
 
@@ -16,6 +17,7 @@ import "github.com/SaaShup/paashup-sdk/netbox"
 import (
     "fmt"
     "github.com/SaaShup/paashup-sdk/docker"
+    "github.com/SaaShup/paashup-sdk/cloudflare"
     "github.com/SaaShup/paashup-sdk/netbox"
 )
 
