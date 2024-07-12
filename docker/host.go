@@ -42,3 +42,19 @@ func HostSearchByName(name string) (HostComplete, error){
 		return HostComplete{}, fmt.Errorf("Host not found")
 	}
 }
+
+func HostCreate(Host HostCreateStruct) (HostComplete, error){
+    var HostResponse HostComplete
+    jsonStr, _ := json.Marshal(Host)
+
+    result, err := netbox.Request("/docker/hosts/", "POST", jsonStr)
+
+    if err != nil {
+        return HostResponse, err
+    }
+    if err := json.Unmarshal(result, &HostResponse); err != nil {
+        return HostResponse, err
+    }
+    return HostResponse, nil
+}
+

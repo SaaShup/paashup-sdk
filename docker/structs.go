@@ -265,6 +265,11 @@ type HostComplete struct {
 	Host
 }
 
+type HostCreateStruct struct {
+    Endpoint string `json:"endpoint" yaml:"endpoint"`
+    Name     string `json:"name" yaml:"name"`
+}
+
 type HostListStruct struct {
 	Count    int            `json:"count" yaml:"count"`
 	Next     string         `json:"next" yaml:"next"`
