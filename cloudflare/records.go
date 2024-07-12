@@ -70,7 +70,7 @@ func DnsRecordSearchByName(name string, accountId int) (DnsRecordComplete, error
 	}
 }
 
-func 
+func DnsRecordCreate(DnsRecord DnsRecordCreateStruct) (DnsRecordComplete, error){
     var DnsRecordResponse DnsRecordComplete
     jsonStr, _ := json.Marshal(DnsRecord)
     result, err := netbox.Request("/dns/records/", "POST", jsonStr)

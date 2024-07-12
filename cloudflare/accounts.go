@@ -8,7 +8,7 @@ import (
 
 func AccountList() (ZoneAccountListStruct, error){
     var accountList ZoneAccountListStruct
-    result, err := netbox.Request("/docker/accounts/", "GET", nil)
+    result, err := netbox.Request("/dns/accounts/", "GET", nil)
 
     if err != nil {
         return accountList, err
@@ -24,7 +24,7 @@ func AccountSearchByName(name string) (ZoneAccountComplete, error){
 		return ZoneAccountComplete{}, fmt.Errorf("Account not found")
 	}
 
-	url := fmt.Sprintf("/accounts/?name=%s", name)
+	url := fmt.Sprintf("/dns/accounts/?name=%s", name)
 	var result ZoneAccountListStruct
 	resultCall, err := netbox.Request(url, "GET", nil)
 

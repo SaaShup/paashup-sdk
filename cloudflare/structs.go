@@ -1,4 +1,4 @@
-package docker
+package cloudflare
 
 type ZoneAccount struct {
 	Id                 int    `json:"id" yaml:"id"`
@@ -11,7 +11,7 @@ type DnsRecord struct {
 	Id            int    `json:"id" yaml:"id"`
 	Record_Id     string `json:"record_id" yaml:"record_id"`
 	Name          string `json:"name" yaml:"name"`
-	Zone          int    `json:"zone" yaml:"zone"`
+	ZoneAccount   int    `json:"zone" yaml:"zone"`
 	Type          string `json:"type" yaml:"type"`
 	Content       string `json:"content" yaml:"content"`
 	Ttl           string `json:"ttl" yaml:"ttl"`
@@ -20,16 +20,16 @@ type DnsRecord struct {
 
 type DnsRecordComplete struct {
     DnsRecord
-    ZoneAccount  ZoneAccount  `json:"accounts" yaml:"host"`
+    ZoneAccount  ZoneAccount  `json:"accounts" yaml:"accounts"`
     Images []Image `json:"images" yaml:"images"`
 }
 
 type DnsRecordCreateStruct struct {
     Name          string `json:"name" yaml:"name"`
-    ServerAddress string `json:"serveraddress" yaml:"serveraddress"`
-    Username      string `json:"username" yaml:"username"`
-    Password      string `json:"password" yaml:"password"`
-    Email         string `json:"email" yaml:"email"`
+    Type          string `json:"type" yaml:"type"`
+    Content       string `json:"content" yaml:"content"`
+    Ttl           string `json:"ttl" yaml:"ttl"`
+    Proxied       bool   `json:"proxied" yaml:"proxied"`
     ZoneAccount   int    `json:"host" yaml:"host"`
 }
 
@@ -41,14 +41,9 @@ type DnsRecordListStruct struct {
 }
 
 type ZoneAccountComplete struct {
-	Token struct {
-		Id            int    `json:"id" yaml:"id"`
-		Url           string `json:"url" yaml:"url"`
-		Display       string `json:"display" yaml:"display"`
-		Key           string `json:"key" yaml:"key"`
-		Write_enabled bool   `json:"write_enabled" yaml:"write_enabled"`
-	}
-	Netbox_base_url string      `json:"netbox_base_url" yaml:"netbox_base_url"`
+	Zone_Name          string `json:"zone_name" yaml:"zone_name"`
+        Zone_Id            string `json:"zone_id" yaml:"zone_id"`
+        Token              string `json:"token" yaml:"token"`
 	Custom_fields   CustomField `json:"custom_fields" yaml:"custom_fields"`
 	Last_updated    string      `json:"last_updated" yaml:"last_updated"`
 	Tags            []string    `json:"tags" yaml:"tags"`
