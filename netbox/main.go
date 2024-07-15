@@ -24,6 +24,7 @@ func Request(endpoint string, method string, jsonStr []byte) ([]byte, error) {
 	}
 
 	req.ContentLength = int64(len(jsonStr))
+    req.Header.Set("Origin", netboxUrl)
 	req.Header.Set("Content-Type", "application/json")
     req.Header.Set("Accept", "application/json")
 	req.Header.Set("Authorization", fmt.Sprintf("Token %s", NETBOX_TOKEN))
