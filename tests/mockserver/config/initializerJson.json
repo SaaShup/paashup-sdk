@@ -1,5 +1,50 @@
 [
     {
+        "id": "List Volumes by host",
+        "httpRequest": {
+            "path": "/api/plugins/docker/volumes/",
+            "queryStringParameters": {
+                "host_id": "1"
+            },
+            "headers": {
+                "Authorization": [
+                    "Token testing"
+                ]
+            }
+        },
+        "httpResponse": {
+            "body": {
+                "count": 1,
+                "next": null,
+                "previous": null,
+                "results": [
+                    {
+                        "id": 1,
+                        "url": "test-1-url",
+                        "host": {
+                            "id": 0,
+                            "display": "string",
+                            "endpoint": "string",
+                            "name": "testhost",
+                            "state": "created",
+                            "agent_version": "string",
+                            "docker_api_version": "string"
+                        },
+                        "name": "test-volume",
+                        "driver": "local",
+                        "mounts": [
+                            {
+                                "id": 0,
+                                "source": "string",
+                                "read_only": true
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         "id": "List Volumes",
         "httpRequest": {
             "path": "/api/plugins/docker/volumes/",
@@ -58,7 +103,7 @@
                                 "read_only": true
                             }
                         ]
-                    },
+                    }
                 ]
             }
         }
