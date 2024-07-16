@@ -13,12 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v5
-        with:
-          go-version: ${{ matrix.go-version }}
-    steps:
-      - uses: actions/checkout@v4
       - name: Start mockserver
         run: docker run -v ./tests/mockserver/config:/config -p 1080:1080 -e MOCKSERVER_INITIALIZATION_JSON_PATH=/config/initializerJson.json --name mockserver-go mockserver/mockserver
       - name: Setup Go ${{ matrix.go-version }}
