@@ -1,0 +1,66 @@
+[
+    {
+        "id": "List Volumes",
+        "httpRequest": {
+            "path": "/api/plugins/docker/volumes/",
+            "headers": {
+                "Authorization": [
+                    "Token testing"
+                ]
+            }
+        },
+        "httpResponse": {
+            "body": {
+                "count": 2,
+                "next": null,
+                "previous": null,
+                "results": [
+                    {
+                        "id": 1,
+                        "url": "test-1-url",
+                        "host": {
+                            "id": 0,
+                            "display": "string",
+                            "endpoint": "string",
+                            "name": "string",
+                            "state": "created",
+                            "agent_version": "string",
+                            "docker_api_version": "string"
+                        },
+                        "name": "test-volume",
+                        "driver": "local",
+                        "mounts": [
+                            {
+                                "id": 0,
+                                "source": "string",
+                                "read_only": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "url": "test-1-url",
+                        "host": {
+                            "id": 0,
+                            "display": "string",
+                            "endpoint": "string",
+                            "name": "string",
+                            "state": "created",
+                            "agent_version": "string",
+                            "docker_api_version": "string"
+                        },
+                        "name": "test-volume",
+                        "driver": "local",
+                        "mounts": [
+                            {
+                                "id": 0,
+                                "source": "string",
+                                "read_only": true
+                            }
+                        ]
+                    },
+                ]
+            }
+        }
+    }
+]
