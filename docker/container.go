@@ -138,3 +138,14 @@ func ContainerCreate(Image ContainerCreateStruct) (ContainerComplete, error){
     }
     return ContainerResponse, nil
 }
+
+func ContainerDelete(containerId int) error{
+    url := fmt.Sprintf("/docker/containers/%d/", containerId)
+    _, err := netbox.Request(url, "DELETE", nil)
+
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
