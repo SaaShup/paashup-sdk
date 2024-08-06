@@ -58,3 +58,12 @@ func HostCreate(Host HostCreateStruct) (HostComplete, error){
     return HostResponse, nil
 }
 
+func HostDelete(HostId int) error{
+    url := fmt.Sprintf("/docker/hosts/%d/", HostId)
+    _, err := netbox.Request(url, "DELETE", nil)
+
+    if err != nil {
+        return err
+    }
+    return nil
+}

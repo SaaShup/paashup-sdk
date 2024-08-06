@@ -8,14 +8,13 @@ jobs:
   tests:
     name: Run tests
     runs-on: ubuntu-latest
+    environment: test_ci
     strategy:
       matrix:
         go-version: [ '1.22' ]
 
     steps:
       - uses: actions/checkout@v4
-      - name: Start mockserver
-        run: docker run -d -v ./tests/mockserver/config:/config -p 1080:1080 -e MOCKSERVER_INITIALIZATION_JSON_PATH=/config/initializerJson.json --name mockserver-go mockserver/mockserver
       - name: Setup Go ${{ matrix.go-version }}
         uses: actions/setup-go@v5
         with:
@@ -24,8 +23,8 @@ jobs:
       - name: Install dependencies for container
         run: cd docker && go get . && cd -
       - name: Run tests for container
-        run: cd docker && go test && cd -
+        run: cd docker && go test -v && cd -
         env:
-          NETBOX_URL: http://localhost:1080 
-          NETBOX_TOKEN: testing
+          NETBOX_URL: ${{ secrets.NETBOX_URL }}
+          NETBOX_TOKEN: ${{ secrets.NETBOX_TOKEN }}
 
