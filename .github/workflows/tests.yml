@@ -24,4 +24,7 @@ jobs:
         run: cd docker && go get . && cd -
       - name: Run tests for container
         run: cd docker && go test && cd -
+        environment:
+          NETBOX_URL: ${{ secrets.NETBOX_URL }}
+          NETBOX_TOKEN: ${{ secrets.NETBOX_TOKEN }}
 
