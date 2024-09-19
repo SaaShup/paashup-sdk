@@ -76,6 +76,18 @@ func ContainerStop(container Container) (Container, error){
     return containerOperation(container, "stop")
 }
 
+func ContainerRecreate(container Container) (Container, error){
+    return containerOperation(container, "recreate")
+}
+
+func ContainerRestart(container Container) (Container, error){
+    return containerOperation(container, "restart")
+}
+
+func ContainerKill(container Container) (Container, error){
+    return containerOperation(container, "kill")
+}
+
 func ContainerInspect(containerId int) (ContainerComplete, error){
 	url := fmt.Sprintf("/docker/containers/%d/", containerId)
 	resultCall, err := netbox.Request(url, "GET", nil)
@@ -137,4 +149,15 @@ func ContainerCreate(Image ContainerCreateStruct) (ContainerComplete, error){
         return ContainerResponse, err
     }
     return ContainerResponse, nil
+}
+
+func ContainerDelete(containerId int) error{
+    url := fmt.Sprintf("/docker/containers/%d/", containerId)
+    _, err := netbox.Request(url, "DELETE", nil)
+
+    if err != nil {
+        return err
+    }
+
+    return nil
 }
