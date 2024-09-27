@@ -1,7 +1,7 @@
 package docker
 
 import (
-    "github.com/SaaShup/paashup-sdk/netbox"
+    "github.com/SaaShup/paashup-sdk/pkg/netbox"
     "encoding/json"
     "fmt"
     "strings"
