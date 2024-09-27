@@ -2,7 +2,7 @@ package docker
 
 import (
     "testing"
-    "github.com/SaaShup/paashup-sdk/netbox"
+    "github.com/SaaShup/paashup-sdk/pkg/netbox"
     "os"
 )
 
